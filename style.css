@@ -1,0 +1,153 @@
+*, 
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    /* colors */
+    --primary-color : rgb(255, 255, 255);
+
+
+    /* spacing */
+    --medium-spacing : 1.5rem;
+    --small-spacing : 0.8rem;
+
+
+    /* sizing  */
+    --medium-radius : 15px;
+}
+
+
+.weather__hourly-forecast-container::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  /* Track */
+  .weather__hourly-forecast-container::-webkit-scrollbar-track {
+    background: #f1f1f100;
+  }
+  
+  /* Handle */
+  .weather__hourly-forecast-container::-webkit-scrollbar-thumb {
+    background: rgba(247, 46, 46, 0);
+  }
+  
+  /* Handle on hover */
+  .weather__hourly-forecast-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 0);
+  }
+
+
+  
+.weather{
+    width: 400px;
+    margin: auto;
+    /* height: 100vh; */
+    background: var(--primary-color);
+    text-align: center;
+    font-family: 'Satoshi', sans-serif;
+    padding: var(--medium-spacing);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    justify-content: center;
+    grid-gap: var(--medium-spacing);
+    grid-template-areas: 
+    "current-forecast current-forecast"
+    "hourly-forecast hourly-forecast"
+    "five-day-forecast five-day-forecast"
+    "feels-like humidity"
+}
+
+.weather__cards{
+    border: 1px solid black;
+    border-radius: var(--medium-radius);
+    
+}
+
+
+.weather__current-forecast{
+    grid-area: current-forecast;
+    display: grid;
+    place-content: center;
+}
+
+.weather__hourly-forecast{
+    grid-area: hourly-forecast;
+    display: grid;
+    place-content: center;
+}
+
+.weather__hourly-forecast-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(100px, 1fr);
+    overflow-x: auto;
+    
+}
+
+.weather__five-day-forecast{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    grid-area: five-day-forecast;
+}
+
+.weather__five-day-container{
+    display: grid;
+    grid-auto-flow: row;
+}
+
+.weather__five-day{
+    border: 1px dashed black;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-template-rows: auto; */
+    grid-auto-flow: column;
+    justify-content: center;
+    align-content: center;
+    /* place-content: center;
+    align-self: center; */
+}
+
+.weather__day{
+    text-transform: capitalize;
+    justify-self: start;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: grid;
+    place-content: center;
+}
+
+.weather__temp{
+    font-size: 1.2rem;
+    display: grid;
+    place-content: center;
+    justify-self: end;
+}
+.weather__min{
+    opacity: 70%;
+}
+
+.weather__icon{
+   border: 1px solid;
+   width: 80px;
+   height: 80px;
+} 
+
+.weather__feels-like{
+    grid-area: feels-like;
+    display: grid;
+    place-content: center;
+    
+}
+
+.weather__humidity{
+    grid-area: humidity;
+    display: grid;
+    place-content: center;
+}
+

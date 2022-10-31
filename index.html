@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1,900,700,500,301,701,300,501,401,901,400,2&f[]=cabinet-grotesk@1,800,500,100,700,400,300,200,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Weatherly</title>
+</head>
+<body>
+    <main class="weather">
+        <article class="weather__current-forecast  weather__cards">
+            <p class="weather__current-city">temperature</p>
+            <h1 class="weather__current-temperature">City</h1>
+            <p class="weather__current-description">description</p>
+            <p class="weather__current-high-low-temperature">H_TEMP L_TEMP</p>
+        </article>
+        
+        <article class="weather__hourly-forecast  weather__cards">
+            <h1 class="weather__hourly-title">Hourly Forecast</h1>
+            
+            <section class="weather__hourly-forecast-container">
+                
+            </section>
+        </article>
+        
+        <article class="weather__five-day-forecast  weather__cards ">
+            <h2>Five Day Forecast</h2>
+            
+            <section class="weather__five-day-container">
+                
+            </section>
+        </article>
+        
+        <article class="weather__feels-like weather__cards">
+            <h1 class="weather__feels-like-title">Feels Like</h1>
+            <p class="weather__feels-like-temperature"></p>
+        </article>
+        
+        <article class="weather__humidity weather__cards">
+            <h1 class="weather__humidity-title">Humidity</h1>
+            <p class="weather__humidity-info">Humidity</p>
+        </article>
+    </main>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
