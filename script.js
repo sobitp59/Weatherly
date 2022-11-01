@@ -39,14 +39,28 @@ const getHourlyWeatherInfo = async () => {
     })
 }
 
-const showHourlyWeatherForecast = (hourlyForecastData) =>{
-    let dataFor12Hours = hourlyForecastData.slice(1, 13)
+const showHourlyWeatherForecast = ({main : {temp : currentTemp}, weather : [{icon : currentIcon}, description]}, hourlyForecastData) =>{
     let hourlyForecastContainer = document.querySelector('.weather__hourly-forecast-container')
-    let hourlyHTML = ''
+    
+    let hourlyHTML = `<article>
+                        <p>Now</p>
+                        <img src=${getWeatherIcon(currentIcon)} alt=${description}>
+                        <h3>${formatTemperature(currentTemp)}</h3>
+                        </article>
+                        `
+                        
+    let dataFor12Hours = hourlyForecastData.slice(2, 14)
     for(let {dt_txt, icon, temp, description} of dataFor12Hours){
-        let date = dt_txt.split(" ")[1]
+
+        let date = new Date(dt_txt)
+
+        const dateFormator = (date) =>{
+            return (new Intl.DateTimeFormat('en', {
+            hour: 'numeric',
+            }).format(date))}
+
         hourlyHTML += `<article>
-                        <p>${date}</p>
+                        <p>${dateFormator(date)}</p>
                         <img src=${getWeatherIcon(icon)} alt=${description}>
                         <h3>${formatTemperature(temp)}</h3>
                        </article>`
@@ -55,6 +69,8 @@ const showHourlyWeatherForecast = (hourlyForecastData) =>{
     hourlyForecastContainer.innerHTML = hourlyHTML
 }   
 // HOURLY WEATHER FORCAST INFORMATION - END //
+
+
 
 
 // FIVE DAY WEATHER FORECAST - START //
@@ -132,10 +148,11 @@ const showHumidity = ({main : {humidity}}) => {
 
 document.addEventListener('DOMContentLoaded', async ()=>{
     const currentWeatherData = await getCurrentWeatherInfo()
+    console.log(currentWeatherData)
     showCurrentWeather(currentWeatherData)
 
     const hourlyWeatherData = await getHourlyWeatherInfo()
-    showHourlyWeatherForecast(hourlyWeatherData)
+    showHourlyWeatherForecast(currentWeatherData, hourlyWeatherData)
 
     showFiveDayWeatherForecast(hourlyWeatherData)
 
