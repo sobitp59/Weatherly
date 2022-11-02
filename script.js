@@ -33,7 +33,7 @@ const showCurrentWeather = ({name, main : {temp, temp_min, temp_max}, weather : 
     currentForecast.querySelector('.weather__current-city').textContent = name;
     currentForecast.querySelector('.weather__current-temperature').textContent = formatTemperature(temp);
     currentForecast.querySelector('.weather__current-description').textContent = description;
-    currentForecast.querySelector('.weather__current-high-low-temperature').textContent = `Low: ${formatTemperature(temp_min)}  High: ${formatTemperature(temp_max)}`;
+    currentForecast.querySelector('.weather__current-high-low-temperature').textContent = `Lowest : ${formatTemperature(temp_min)}  Highest : ${formatTemperature(temp_max)}`;
 }
 // CURRENT WEATHER INFORMATION - END //
 

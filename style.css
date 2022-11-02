@@ -65,9 +65,9 @@
 }
 
 .weather__cards{
-    border: 1px solid black;
+    border: 1.5px solid rgba(129, 129, 129, 0.363);
     border-radius: var(--medium-radius);
-    
+    padding: var(--medium-spacing) var(--medium-small-spacing);
 }
 
 .weather__search-city{
@@ -75,13 +75,41 @@
     outline: none;
     padding: var(--medium-small-spacing) var(--small-spacing);
     border-radius: var(--small-radius);
-    border: 1px solid black;
+    border: 1.5px solid rgba(129, 129, 129, 0.363);
 }
 
 .weather__current-forecast{
     grid-area: current-forecast;
     display: grid;
     place-content: center;
+}
+
+.weather__hourly-title-margin{
+    margin-bottom: var(--medium-small-spacing);
+}
+
+.weather__current-description{
+    display: block;
+    margin-top: 4px;
+    background: rgba(129, 129, 129, 0.139);
+    border-radius: 20px;
+    padding: 5px 6px;
+}
+
+.weather__para{
+    font-weight: bold;
+    opacity: 70%;
+    
+}
+
+.weather__current-temperature{
+    font-size: 5rem;
+    line-height: 5rem;
+    opacity: 70%;
+}
+
+.weather__current-high-low-temperature{
+    margin-top: 4px;
 }
 
 .weather__hourly-forecast{
