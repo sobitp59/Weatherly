@@ -1,6 +1,8 @@
 
 // write function to get city
-let city = 'Guwahati' 
+// let city = 'Guwahati' 
+let selectedCityText
+let selectedCity
 const API_KEY = '0654d5e67660c6b9bf8f57cf8bc9c2f0'
 const DAYS_OF_THE_WEEK = ['sun','mon','tue','wed','thu','fri','sat']
 
@@ -12,9 +14,16 @@ const formatTemperature = (temperature) =>{
     return temperature ? `${temperature.toFixed(1)}°` : ''
 }
 
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -//
+
+
+
 // CURRENT WEATHER INFORMATION - STARTS //
-const getCurrentWeatherInfo = async () =>{
-   let response =  await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
+const getCurrentWeatherInfo = async ({lat, lon, name : city}) =>{
+    let url = lat && lon ? `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric` : `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+   let response =  await fetch(url)
    return response.json()
 }
 
@@ -30,7 +39,7 @@ const showCurrentWeather = ({name, main : {temp, temp_min, temp_max}, weather : 
 
 
 // HOURLY WEATHER FORCAST INFORMATION - START //
-const getHourlyWeatherInfo = async () => {
+const getHourlyWeatherInfo = async ({name : city}) => {
     let response =  await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`)
     let data = await response.json()
     return data.list.map(forecast => {
@@ -92,15 +101,12 @@ const getForecastForTheDay = (hourlyWeatherData) => {
     }
     
     for(let [key, value] of dayWiseForecast){
-        console.log(key, value)
         let temp_min = Math.min(...Array.from(value, val => val.temp_min))
         let temp_max = Math.max(...Array.from(value, val => val.temp_max))
         let icon = value.find(val => val).icon
-        console.log(icon)
         dayWiseForecast.set(key, {temp_min, temp_max, icon})
     }
 
-    console.log(dayWiseForecast)
     return dayWiseForecast
 }
 
@@ -144,14 +150,47 @@ const showHumidity = ({main : {humidity}}) => {
 // HUMIDITY INFORMATION - END //
 
 
+// SEARCH CITY - START //
+const getCityUsingGeolocation = async (cityName) => {
+    let response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=${10}&appid=${API_KEY}`)
+    return response.json()
+}
 
+let getInputValue = async (event) => {
+    let {value} = event.target
+    if(!value){
+        selectedCity = null
+        selectedCityText= ''
+    }
+    if(value && (value !== selectedCityText)){
+        let cityLists = await getCityUsingGeolocation(value)
+    
+        let optionsHtml = ''
+        for(let {name, lat, lon, country, state} of cityLists){
+            optionsHtml += `<option data-city-details='${JSON.stringify({lat, lon, name})}' value="${name}, ${state}, ${country}"></option>`
+        }
+    
+        document.querySelector('#weather__cities').innerHTML = optionsHtml
+    }
 
-document.addEventListener('DOMContentLoaded', async ()=>{
-    const currentWeatherData = await getCurrentWeatherInfo()
-    console.log(currentWeatherData)
+}
+
+function debounceMethod(func){
+    let timer 
+    return (...args)=>{
+        // let context = this, args = arguments
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            func.apply(this, args)
+        }, 400);
+    }
+}
+
+const loadData = async() => {
+    const currentWeatherData = await getCurrentWeatherInfo(selectedCity)
     showCurrentWeather(currentWeatherData)
 
-    const hourlyWeatherData = await getHourlyWeatherInfo()
+    const hourlyWeatherData = await getHourlyWeatherInfo(currentWeatherData)
     showHourlyWeatherForecast(currentWeatherData, hourlyWeatherData)
 
     showFiveDayWeatherForecast(hourlyWeatherData)
@@ -159,5 +198,31 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     showFeelsLikeTemperature(currentWeatherData)
 
     showHumidity(currentWeatherData)
+}
+
+
+const showSearchedCityWeather = (event) => {
+    selectedCityText = event.target.value
+    let options = document.querySelectorAll("#weather__cities > option")
+    if(options?.length){
+        let selectedOption = Array.from(options).find(val => val.value === selectedCityText)
+        selectedCity = JSON.parse(selectedOption.getAttribute("data-city-details"))
+        loadData() 
+    }   
+}   
+
+let debounceSearch = debounceMethod((event)=>getInputValue(event))
+
+
+// SEARCH CITY - END //
+
+
+
+document.addEventListener('DOMContentLoaded', async ()=>{
+
+    let searchCityInput = document.querySelector('.weather__search-city')
+    searchCityInput.addEventListener('input', debounceSearch)
+    searchCityInput.addEventListener('change', showSearchedCityWeather)
+
 })
 

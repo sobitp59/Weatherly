@@ -10,6 +10,19 @@
 </head>
 <body>
     <main class="weather">
+        <input 
+            type="search" 
+            name="search-city" 
+            id="weather__search-city" 
+            class="weather__search-city" 
+            list="weather__cities" 
+            autocomplete="off"
+            placeholder="Search City"
+        >
+        <datalist id="weather__cities">
+            <!-- <option value="pune"></option><option value="mumbai"></option><option value="delhi"></option> -->
+        </datalist>
+
         <article class="weather__current-forecast  weather__cards">
             <p class="weather__current-city">temperature</p>
             <h1 class="weather__current-temperature">City</h1>

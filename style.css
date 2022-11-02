@@ -17,6 +17,7 @@
 
 
     /* sizing  */
+    --small-radius : 10px;
     --medium-radius : 15px;
 }
 
@@ -54,7 +55,8 @@
     grid-template-columns: repeat(2, minmax(100px, 1fr));
     justify-content: center;
     grid-gap: var(--medium-spacing);
-    grid-template-areas: 
+    grid-template-areas:
+    "search-city search-city" 
     "current-forecast current-forecast"
     "hourly-forecast hourly-forecast"
     "five-day-forecast five-day-forecast"
@@ -67,6 +69,13 @@
     
 }
 
+.weather__search-city{
+    grid-area: search-city;
+    outline: none;
+    padding: var(--small-spacing) var(--medium-spacing);
+    border-radius: var(--small-radius);
+    border: 1px solid black;
+}
 
 .weather__current-forecast{
     grid-area: current-forecast;
