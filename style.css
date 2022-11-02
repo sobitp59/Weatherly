@@ -106,6 +106,7 @@
     font-size: 5rem;
     line-height: 5rem;
     opacity: 70%;
+    margin: var(--medium-small-spacing) 0;
 }
 
 .weather__current-high-low-temperature{
