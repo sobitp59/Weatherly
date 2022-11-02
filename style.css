@@ -65,7 +65,7 @@
 }
 
 .weather__cards{
-    border: 1.5px solid rgba(129, 129, 129, 0.363);
+    border: 1px solid rgba(129, 129, 129, 0.544);
     border-radius: var(--medium-radius);
     padding: var(--medium-spacing) var(--medium-small-spacing);
 }
@@ -75,7 +75,7 @@
     outline: none;
     padding: var(--medium-small-spacing) var(--small-spacing);
     border-radius: var(--small-radius);
-    border: 1.5px solid rgba(129, 129, 129, 0.363);
+    border: 1px solid rgba(129, 129, 129, 0.544);
 }
 
 .weather__current-forecast{
