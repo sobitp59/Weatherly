@@ -186,6 +186,14 @@ function debounceMethod(func){
     }
 }
 
+const loadForecastUsingBrowserGeolocation = () => {
+    navigator.geolocation.getCurrentPosition(({coords})=>{
+        const {latitude : lat, longitude : lon} = coords
+        selectedCity = {lat, lon}
+        loadData()
+    }, error => console.log(error))
+}
+
 const loadData = async() => {
     const currentWeatherData = await getCurrentWeatherInfo(selectedCity)
     showCurrentWeather(currentWeatherData)
@@ -219,7 +227,7 @@ let debounceSearch = debounceMethod((event)=>getInputValue(event))
 
 
 document.addEventListener('DOMContentLoaded', async ()=>{
-
+    loadForecastUsingBrowserGeolocation()
     let searchCityInput = document.querySelector('.weather__search-city')
     searchCityInput.addEventListener('input', debounceSearch)
     searchCityInput.addEventListener('change', showSearchedCityWeather)
