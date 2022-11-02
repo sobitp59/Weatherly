@@ -7,7 +7,7 @@ const API_KEY = '0654d5e67660c6b9bf8f57cf8bc9c2f0'
 const DAYS_OF_THE_WEEK = ['sun','mon','tue','wed','thu','fri','sat']
 
 // function to create icon url
-const getWeatherIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@2x.png`;
+const getWeatherIcon = (icon) => `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
 // function to format temperature
 const formatTemperature = (temperature) =>{
@@ -152,7 +152,7 @@ const showHumidity = ({main : {humidity}}) => {
 
 // SEARCH CITY - START //
 const getCityUsingGeolocation = async (cityName) => {
-    let response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=${10}&appid=${API_KEY}`)
+    let response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=${10}&appid=${API_KEY}`)
     return response.json()
 }
 
