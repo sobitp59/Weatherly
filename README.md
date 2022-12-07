@@ -11,7 +11,7 @@ Just enter your city and get the live weather forecast in few seconds.
 - HTML
 - CSS
 - JavaScript
-- Open Weather API 
+- [Open Weather API](https://openweathermap.org/api) 
 
 
 
@@ -29,9 +29,6 @@ Just enter your city and get the live weather forecast in few seconds.
 <table>
   <tr>
     <td width="50%">
-     <img src="weatherly.gif" width="100%" alt="Password Generator"/>
-     </td>
-       <td width="50%">
      <img src="weatherly.gif" width="100%" alt="Password Generator"/>
      </td>
   </tr>
